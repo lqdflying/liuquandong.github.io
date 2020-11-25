@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>第二笔记</title>
+    <link href="/2020/11/25/%E7%AC%AC%E4%BA%8C%E7%AC%94%E8%AE%B0/"/>
+    <url>/2020/11/25/%E7%AC%AC%E4%BA%8C%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<p><img src="https://vip1.loli.net/2020/11/25/kZRIypb9NFufOwT.png" alt="MD-20201125130949_2020-11-25-13-09-49"></p><pre class="language-html" data-language="html"><code class="language-html">&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot; dir&#x3D;&quot;ltr&quot;&gt;  &lt;head&gt;    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;    &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;style.css&quot;&gt;    &lt;link href&#x3D;&quot;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css?family&#x3D;Open+Sans&quot; rel&#x3D;&quot;stylesheet&quot;&gt;    &lt;title&gt;Form a Story&lt;&#x2F;title&gt;  &lt;&#x2F;head&gt;  &lt;body&gt;    &lt;section id&#x3D;&quot;top&quot;&gt;      &lt;img src&#x3D;&quot;https:&#x2F;&#x2F;s3.amazonaws.com&#x2F;codecademy-content&#x2F;courses&#x2F;learn-html-forms&#x2F;formAStoryLogo.svg&quot; alt&#x3D;&quot;Form A Story Logo&quot;&gt;    &lt;&#x2F;section&gt;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Flask</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>第一章: 初识Flask</title>
     <link href="/2020/11/24/flask-first/"/>
     <url>/2020/11/24/flask-first/</url>
