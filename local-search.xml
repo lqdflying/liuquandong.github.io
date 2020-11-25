@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>第一章: 初识Flask</title>
+    <link href="/2020/11/24/flask-first/"/>
+    <url>/2020/11/24/flask-first/</url>
+    
+    <content type="html"><![CDATA[<h4 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1-1 概述"></a>1-1 概述</h4><p>Flask是使用Python编写的<u><strong>Web微框架</strong></u><br>Flask的主要依赖:</p><ul><li>WSGI(Web Server Gateway Interface,Web服务器网关接口)工具集</li><li>Jinja2模板引擎<blockquote><p>WSGI(Web Server Gateway Interface,Web服务器网关接口)是用来规定Web服务器如何与Python Web程序进行沟通的标准</p></blockquote></li></ul><p><code>pip install flask</code>的时候会同时安装5个依赖包,这5个依赖包作用如下:</p><h4 id="1-2-注册路由"><a href="#1-2-注册路由" class="headerlink" title="1-2 注册路由"></a>1-2 注册路由</h4><pre class="language-python" data-language="python"><code class="language-python">import clickfrom flask import Flaskapp &#x3D; Flask(__name__)# the minimal Flask application@app.route(&#39;&#x2F;&#39;)def index():    return &#39;&lt;h1&gt;Hello, World!&lt;&#x2F;h1&gt;&#39;</code></pre><ul><li><p>传入的Flask类构造方法的第一个参数是模块或者包的名称,这里我们应该使用特殊边来那个<strong>name</strong></p></li><li><p><code>@app.route(&#39;/&#39;)</code>的作用就是<strong>注册路由</strong>,在一个Web应用里,客户端和服务器上的Flask程序的交互可以简单概括为以下几步:</p><ol><li>用户在浏览器输入URL访问某个资源</li><li>Flask接收用户请求并分析请求的URL</li><li>为这个URL找到对应的处理函数</li><li>执行函数并生成响应,返回给浏览器</li></ol></li><li><p>被路由装饰器装饰的这个函数<code>def index()</code>被称为<strong>视图函数(view function)</strong></p></li></ul><pre class="language-python" data-language="python"><code class="language-python"># bind multiple URL for one view function@app.route(&#39;&#x2F;hi&#39;)@app.route(&#39;&#x2F;hello&#39;)def say_hello():    return &#39;&lt;h1&gt;Hello, Flask!&lt;&#x2F;h1&gt;&#39;</code></pre><ul><li>一个视图函数可以绑定多个URL</li></ul><pre class="language-python" data-language="python"><code class="language-python"># dynamic route, URL variable default@app.route(&#39;&#x2F;greet&#39;, defaults&#x3D;&#123;&#39;name&#39;: &#39;Programmer&#39;&#125;)@app.route(&#39;&#x2F;greet&#x2F;&lt;name&gt;&#39;)def greet(name):    return &#39;&lt;h1&gt;Hello, %s!&lt;&#x2F;h1&gt;&#39; % name</code></pre><ul><li>路由装饰器的URL部分可以添加变量,这样就变成了动态URL</li><li>变量可以添加默认值<code>defaults</code>,需要<strong>以dict的格式传入</strong></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Flask</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2020/11/24/hello-world/"/>
+    <url>/2020/11/24/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>
