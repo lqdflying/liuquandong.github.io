@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>第二笔记 - Hexo</title>
+  <title>第一章 AIX操作系统概述 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -170,7 +170,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="第二笔记">
+            <span class="h2" id="subtitle" title="第一章 AIX操作系统概述">
               
             </span>
 
@@ -180,7 +180,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-11-25 13:08" pubdate>
+      <time datetime="2020-11-25 16:39" pubdate>
         2020年11月25日 下午
       </time>
     </span>
@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      129 字
+      515 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      5
        分钟
     </span>
   
@@ -232,22 +232,47 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">第二笔记</h1>
+            <h1 style="display: none">第一章 AIX操作系统概述</h1>
             
             <div class="markdown-body">
-              <p><img src="https://vip1.loli.net/2020/11/25/kZRIypb9NFufOwT.png" srcset="/img/loading.gif" alt="MD-20201125130949_2020-11-25-13-09-49"></p>
-<pre class="language-html" data-language="html"><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang&#x3D;&quot;en&quot; dir&#x3D;&quot;ltr&quot;&gt;
-  &lt;head&gt;
-    &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;
-    &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;style.css&quot;&gt;
-    &lt;link href&#x3D;&quot;https:&#x2F;&#x2F;fonts.googleapis.com&#x2F;css?family&#x3D;Open+Sans&quot; rel&#x3D;&quot;stylesheet&quot;&gt;
-    &lt;title&gt;Form a Story&lt;&#x2F;title&gt;
-  &lt;&#x2F;head&gt;
-  &lt;body&gt;
-    &lt;section id&#x3D;&quot;top&quot;&gt;
-      &lt;img src&#x3D;&quot;https:&#x2F;&#x2F;s3.amazonaws.com&#x2F;codecademy-content&#x2F;courses&#x2F;learn-html-forms&#x2F;formAStoryLogo.svg&quot; alt&#x3D;&quot;Form A Story Logo&quot;&gt;
-    &lt;&#x2F;section&gt;</code></pre>
+              <h4 id="一、AIX操作系统提供了其他UNIX系统没有的功能"><a href="#一、AIX操作系统提供了其他UNIX系统没有的功能" class="headerlink" title="一、AIX操作系统提供了其他UNIX系统没有的功能:"></a>一、AIX操作系统提供了其他UNIX系统没有的功能:</h4><ul>
+<li>逻辑卷管理器(logic volume manager,LVM)</li>
+<li>系统管理接口工具(system management interface tool,SMIT)</li>
+<li>信任计算基础(TCB)</li>
+<li>网络文件系统(NFS)</li>
+</ul>
+<h4 id="二、AIX-version4特点"><a href="#二、AIX-version4特点" class="headerlink" title="二、AIX version4特点:"></a>二、AIX version4特点:</h4><ul>
+<li>网络安装管理器(network install manager,NIM)</li>
+<li>日志型文件系统(JFS)</li>
+<li>动态主机配置协议(DHCP)</li>
+<li>通用桌面环境(CDE)</li>
+<li>支持对称多处理系统(SMP)</li>
+<li>基于web的系统管理器</li>
+<li>工作负载管理器(WLM)</li>
+<li>IPV6</li>
+<li>在线文档库</li>
+<li>64位计算<h4 id="三、AIX-5L中的改进"><a href="#三、AIX-5L中的改进" class="headerlink" title="三、AIX 5L中的改进"></a>三、AIX 5L中的改进</h4></li>
+<li>JFS2</li>
+<li>NFS中的statd进程多线程优化</li>
+<li>被动镜像写一致性</li>
+<li>配置管理器(configuration manager,cfgmgr)</li>
+<li>基于web的管理系统</li>
+<li>工作负载管理器(WLM)<h4 id="四、AIX-5L中的新功能"><a href="#四、AIX-5L中的新功能" class="headerlink" title="四、AIX 5L中的新功能"></a>四、AIX 5L中的新功能</h4></li>
+<li>/proc文件系统</li>
+<li>/opt文件系统</li>
+<li>停用活动的页面空间</li>
+<li>资源监视控制器(RMC)</li>
+<li>支持虚拟IP地址</li>
+<li>动态逻辑分区(DLPAR):5.1是Lpar,5.2+是DLpar</li>
+</ul>
+<h4 id="五、AIX内核特点"><a href="#五、AIX内核特点" class="headerlink" title="五、AIX内核特点:"></a>五、AIX内核特点:</h4><p><code>抢占式,可置换,动态性,可扩展性</code></p>
+<h4 id="六、应用程序-内核和硬件之间在32位VS-64位的关系组合"><a href="#六、应用程序-内核和硬件之间在32位VS-64位的关系组合" class="headerlink" title="六、应用程序,内核和硬件之间在32位VS.64位的关系组合"></a>六、应用程序,内核和硬件之间在32位VS.64位的关系组合</h4><ul>
+<li>要运行64位内核,需要有64位的硬件环境</li>
+<li>加载了64位的内核扩展并不能说明系统的内核是64位的,AIX只有从5.1L开始才有64位的内核,64位的内核扩展仅仅是允许在32位的内核中编译64位的应用,如果32位内核具有64位的硬件环境(处理器),则syscalls64.ext文件集将允许运行64位的应用,但是在AIX5.1中,64位内核配合64位处理器将使64位的应用具有更好的性能</li>
+<li>大多数情况下,在64位的硬件结构中运行32位的应用是没有问题的,因为64位的硬件兼容64和32位的软件,但是32位硬件上不可以运行64位的软件</li>
+<li>AIX3.3.3上的32位应用可以直接运行在AIX5.1上,但是AIX3.3.3上的64位应用必须在AIX5.1上重新编译才可以使用。</li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -256,10 +281,17 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Flask/">Flask</a>
+                      <a class="hover-with-bg" href="/categories/AIX-5L%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E6%8A%80%E6%9C%AF/">AIX 5L系统管理技术</a>
                     
                   </div>
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/aix/">aix</a>
+                    
+                  </div>
                 
               </div>
               
@@ -273,12 +305,6 @@
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2020/11/24/flask-first/">
-                        <span class="hidden-mobile">第一章: 初识Flask</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
