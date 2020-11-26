@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>第三章 启动和关闭AIX操作系统 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/themes/prism-solarizedlight.min.css" />
+      
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>liuquandong</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="第三章 启动和关闭AIX操作系统">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-26 12:21" pubdate>
+        2020年11月26日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第三章 启动和关闭AIX操作系统</h1>
+            
+            <div class="markdown-body">
+              <h4 id="一、小机启动时，可以再引导过程中，选择不同的系统运行模式："><a href="#一、小机启动时，可以再引导过程中，选择不同的系统运行模式：" class="headerlink" title="一、小机启动时，可以再引导过程中，选择不同的系统运行模式："></a>一、小机启动时，可以再引导过程中，选择不同的系统运行模式：</h4><ol>
+<li>从 磁带或者cdrom引导系统进入维护模式（单用户模式）</li>
+<li>从硬盘引导系统进入到维护模式（单用户模式）和正常模式（多用户模式）</li>
+<li>进入系统管理维护模式（SMS模式：System Management Services）</li>
+</ol>
+<h4 id="二、一般引导过程概述"><a href="#二、一般引导过程概述" class="headerlink" title="二、一般引导过程概述"></a>二、一般引导过程概述</h4><p> 经典的RS6000机器（MCA）结构系统硬件自检分两个阶段：内置设备自检阶段（BIST）和加电自检阶段（POST），对于PCI的机器，则由单独的加电自检（POST）完成硬件检查。<br>经过硬件检查，系统就尝试加载引导逻辑卷（BLV：Boot Logical Volume），并在内存中形成RAMFS，并把控制权交给BLV，但由于内存中没有加载任何LVM（logic volume manager，LVM）的驱动，因此系统必须在不适用LVM的情况下正确找到BLV数据在硬盘上的位置。正确的BLV的地址信息（包括偏移量和长度）保存在引导磁盘的第一个物理扇区（这个扇区有512字节的块）上，这个扇区称之为引导记录（Boot Record）。</p>
+<blockquote>
+<p><strong>RAM文件系统</strong><br>        RAMFS是引导镜像的一部分，完全常驻内存，而且包含很多能让引导继续的程序。在RAM文件系统中运行的init进程实际上是ssh（simple shell）程序，这个程序通过调用rc.boot脚本来控制系统引导过程，rc.boot脚本第一步决定操作系统从哪个设备上引导，决定引导的设备应该在RAM文件系统中的配置（rc.boot脚本找到引导设备以后，从RAM文件系统中条用相应的程序来进行配置）</p>
+</blockquote>
+<p>引导逻辑卷BLV也成为引导镜像，它包括下边这几个部分：</p>
+<ol>
+<li>软件ROS——ROS是“只读存储器”的意思，软件ROS只存在于PCI的机器中，执行一些系统初始化的工作，PCI机器的ROS不提供软件ROS，而由AIX提供</li>
+<li>AIX内核——AIX内核总是从BLV加载。/unix(软连接到/usr/lib/boot/unix_mp或unix_up)是一份内核副本，这个版本被用于构建hd4文件系统（也就是根文件系统）。在系统引导时，从hd4文件系统读取内核镜像。</li>
+<li>rc.boot——rc.boot是一个shell命令文件，它是配置系统的脚本，在系统引导期间，init进程要执行这个脚本三次：</li>
+</ol>
+<blockquote>
+<p>当加载BLV以后，由于rootvg没有被激活，并不可用，引导所需的信息都包含在用于在内存中创建RAM文件系统的BLV中，之后，init进程被加载运行，并由init进程开始配置基本信息：这就是第一引导阶段，这个阶段，init执行rc.boot的时候，带个参数1。<br> 下一步为第二引导阶段（init执行rc.boot的时候，带个参数2），主要目的是激活rootvg（也是最容易出现问题的阶段，比如文件系统或者是jsflog损坏），接着把控制权交给rootvg中的init进程，然后释放RAM文件系统。<br> 第三引导阶段，init进程（从磁盘加载的init进程，而不是BLV中的init进程）带参数3执行rc.boot脚本配置剩余的设备，并从/etc/inittab启动其他进程</p>
+</blockquote>
+<ol start="4">
+<li>简化的ODM——只提供最基本的设备配置信息</li>
+<li>引导命令——比如cfgmgr和bootinfo等</li>
+</ol>
+<h4 id="三、基于PCI的系统引导模式"><a href="#三、基于PCI的系统引导模式" class="headerlink" title="三、基于PCI的系统引导模式"></a>三、基于PCI的系统引导模式</h4><p>基于PCI的只有两种引导模式，分别是normal模式和service模式，多用户模式一般从内置硬盘启动，单用户模式可以从磁盘，cdrom或者硬盘启动。<br> 以维护模式引导系统，就会进入到系统诊断状态，用户可以查看和更改系统的设备和配置，可以进行系统的诊断和维护工作。此时系统中只有一个root用户，所以称之为单用户模式。PCI系统的维护模式分为两种，一种：独立诊断模式（从磁带或者是cdrom引导到维护模式）。另一种是在线诊断模式（从硬盘引导）<br> 在POST时确定引导模式，系统根据引导设备列表来引导，比如：“软磁盘-cdrom-硬盘-网络设备”类似这样一个设备组成。用户可以自己修改引导设备列表（用bootlist命令）也可以用SMS来自定义引导设备列表。自定义引导设备列表保存在NVRAM中，默认的引导列表保存在ROS中。<br> 启动POST完成时，在第一个图标出来之后和最后一个图标出来之前，按键盘某个按键，进入相应模式：</p>
+<ul>
+<li> F1/1    —-&gt;SMS系统管理维护模式</li>
+<li> F5/5    —-&gt;默认引导设备列表引导维护模式，进入独立诊断模式</li>
+<li> F6/6    —-&gt;自定义引导设备列表引导维护模式，进入在线诊断模式</li>
+<li> F8/8    —-&gt;正常模式引导</li>
+</ul>
+<p>在支持AIX的操作系统的机器是上，无论是否已安装AIX，都可以进入到独立诊断模式，只有安装了系统的机器可以进入在线诊断模式，诊断模式类型由系统从什么介质启动决定。<br> 通过磁带、cdrom和网络方式启动系统，rootvg卷组不会激活，因为root卷组可能不存在（重新安装系统）。一旦进入独立诊断模式，就不能取出光盘，只能在给机器加电之后和POST完成之前才能去除光盘。</p>
+<h4 id="四、多用户模式启动流程"><a href="#四、多用户模式启动流程" class="headerlink" title="四、多用户模式启动流程"></a>四、多用户模式启动流程</h4><h5 id="1-ROS内核初始化阶段"><a href="#1-ROS内核初始化阶段" class="headerlink" title="1. ROS内核初始化阶段"></a>1. ROS内核初始化阶段</h5><ol>
+<li>首先由OCS（On-chip Sequencer）调用微处理器检查系统主板是否有问题，然后将控制权交给只读存储器（ROS），并执行系统加电自检（POST）</li>
+<li>ROS初始化载入程序（IPL）检查用户自定义引导设备列表（Boot List），如果找不到自定义列表或者自定义引导设备列表不正确，就会使用默认引导列表，然后使用在引导列表中找到的第一个设备来引导。</li>
+<li>到找到第一个可以引导的设备后，就检测引导设备上的第一个记录或物理扇区号（PSN：physical sector number）。如果是合法的引导记录。则把它读入内存，并附加到初始装入程序（IPL）的控制块上。然后根据引导记录中包含的“引导逻辑卷（BLV）长度和BLV的地址（BLV）在引导设备上的位置”把BLV装入到内存。</li>
+<li>从引导设备中顺序的把引导逻辑卷（也就是引导镜像）读入到内存，建立RAM文件系统（RAMFS）。引导逻辑卷（BLV）由“内核、一个RAM文件系统和基本初始化设备信息（简化的ODM）组成。”</li>
+<li>把控制权移交给在RAM文件系统中开始系统初始化的内核。</li>
+<li>系统初始化的内核运行init程序（进程号为1），init进程继续去执行rc.boot脚本，并附带参数1</li>
+<li>内核初始化阶段和硬件检测阶段结束。</li>
+</ol>
+<h5 id="2-基本设备配置阶段-rc-boot第1阶段"><a href="#2-基本设备配置阶段-rc-boot第1阶段" class="headerlink" title="2. 基本设备配置阶段(rc.boot第1阶段)"></a>2. 基本设备配置阶段(rc.boot第1阶段)</h5><p>现在的情况是，系统完成硬件检测，找到BLV，简历了RAM，启动了RAM中的init进程，但是rootvg还没有激活。rc.boot第一阶段主要是完成基本的设备配置</p>
+<ol>
+<li>RAMFS中的init进程执行引导脚本rc.boot带参数1，在这个过程中，rc.boot调用restbase命令，把引导逻辑卷（BLV）上的简化ODM数据库复制到RAMFS，如果这个操作时被，LED面板显示548.</li>
+<li>然后rc.boot执行cfgmgr -f命令（配置管理器），让cfgmgr从简化的ODM数据库中读取Config_Rules类，在Config_Rules类中，属性值为1的设备都被认为是基本设备，基本设备是为访问rootvg所需的全部设备。rc.boot这个阶段执行cfgmgr来配置基本设备，以便在下一个rc.boot阶段能够激活rootvg。<br>以下就是这个文件的位置<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/1.jpg" srcset="/img/loading.gif" alt="1"><br>顺便可以查出这个类下边phrase=1的对象：<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/9a63578241fc436dba893254ef705062.jpg" srcset="/img/loading.gif" alt="9a63578241fc436dba893254ef705062"><br>（后边还有，未截图列出）</li>
+<li> 在rc.boot第一个引导阶段的最后，执行bootinfo -b命令来检测最后一次引导设备，这时LED显示511.</li>
+</ol>
+<h5 id="3-rc-boot第2引导阶段"><a href="#3-rc-boot第2引导阶段" class="headerlink" title="3. rc.boot第2引导阶段"></a>3. rc.boot第2引导阶段</h5><ol>
+<li>rc.boot执行ipl_varyon命令激活rootvg，若这个命令和执行不成功，则显示522、554、556中的一个</li>
+<li>ipl_varyon执行成功以后，用fsck -fp /dev/hd4命令检查rootvg（位于磁盘上）的根文件系统，然后把rootvg的根文件系统（/dev/hd4）安装在RAMFS的临时安装点上（/mnt），这一步失败，显示错误代码555、557</li>
+<li>安装/var和/usr文件系统。如果失败，显示518.一旦安装了/var文啊进系统，就用copycore命令把默认的dump设备(/dev/hd6)里最后的dump复制到默认的副本目录(/var/adm/ras)，复制完dump之后，就卸载/var文件系统。</li>
+<li>运行swapon(/usr/sbin/swapon)命令来激活rootvg上基本的页面空间(/dev/hd6)</li>
+<li>用mergedev命令把RAMFS中/dev目录复制到磁盘上的文件系统中，再用cp Cu* /mnt/etc/bojrepos命令吧RAMFS中用户化的ODM数据库复制到磁盘上，这里/mnt/etc/bojrepos这个路径是因为，根目录/本临时挂在到RAMFS中的/mnt这个安装点上</li>
+<li>从RAMFS中卸载/var和rootvg的根文件系统/dev/hd4（挂在到/mnt）</li>
+<li>在RAMFS的根文件系统所在的安装点上永久性安装rootvg（位于磁盘）的根文件系统，由newroot命令完成RAM文件系统到rootvg的文件系统的切换。root卷组中的文件系统安装点可以使用以后，就将root卷组中的/usr和/var文件系统安装到相应的安装点</li>
+<li>此时没有可使用的控制台，所有的引导信息都被复制到错误日志alog中</li>
+<li>退出执行rc.boot脚本，把控制权移交给root卷组中的init进程，然后释放RAM文件系统</li>
+<li>位于硬盘上的init进程将执行整个启动过程的最后一部分</li>
+</ol>
+<blockquote>
+<p><strong>因为控制台不可用，所以输出信息都记录在alog中</strong></p>
+</blockquote>
+<ul>
+<li>init程序读取/etc/inittab文件，如果/etc/inittab存在，则init程序在/etc/inittab中寻找默认的系统启动初始记录（记录标识符是init，第三个字段是initdefault），整个记录中包含了预先登记在文件/etc/inittab中的进程。初始记录不存在，则init进程就会要求用户从系统控制台（/dev/console）输入一个运行级别。（用户输入S、s、M、m则进入单用户模式，只有进入单用户模式才不要求/etc/inittab内容必须是完整的）</li>
+<li>如果/etc/inittab不存在，init默认直接进入系统维护运行级别</li>
+<li>init进程每隔60秒重新读取一次/etc/inittab文件，如果init进程上次读过该文件之后，新增删了东西，这一次读取也会执行这些变化。</li>
+</ul>
+<h5 id="4-rc-boot第3引导阶段"><a href="#4-rc-boot第3引导阶段" class="headerlink" title="4. rc.boot第3引导阶段"></a>4. rc.boot第3引导阶段</h5><p>在/etc/inittab文件中第一条记录为initdefault，第二条记录的标识符为brc，这条记录就是指示init去执行rc.boot第3阶段。<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/4574c68d17e0425aa9757973a54a695e.jpg" srcset="/img/loading.gif" alt="4574c68d17e0425aa9757973a54a695e"><br>第3阶段工作为：</p>
+<ol>
+<li>安装/tmp文件系统</li>
+<li>同步rootvg（通过执行命令#syncvg -v rootvg &amp;），这可能会花一些时间，如果执行失败，则显示错误代码553</li>
+<li>如果是正常（normal）引导，则执行cfgmgr -p2命令；如果是维护（service）模式引导，则执行cfgmgr -p3命令。cfgmgr读取ODM数据库中的Config_rules类，检查属性值是2或者是3的设备，并对其进行配置（属性值为1的设备在第1阶段就检查完了），即配置所有剩余设备。</li>
+<li>用cfgcon命令配置控制台。不同的终端设备，在LED上显示的代码不同。</li>
+<li>执行savebase命令把/（根）文件系统中的ODM数据库保存引导逻辑卷（BLV）中</li>
+<li>退出执行rc.boot脚本，然后由init进程顺序启动/etc/inittab文件中的其他进程</li>
+</ol>
+<h4 id="五、操作系统运行级别"><a href="#五、操作系统运行级别" class="headerlink" title="五、操作系统运行级别"></a>五、操作系统运行级别</h4><p>操作系统真正的运行级别有11个，是0-9，再加一个S、s、M、m，其中级别2表示多用户模式，S、s、M、m这写个级别表示单用户模式（维护模式）</p>
+<h4 id="六、init进程重读-etc-inittab文件"><a href="#六、init进程重读-etc-inittab文件" class="headerlink" title="六、init进程重读/etc/inittab文件"></a>六、init进程重读/etc/inittab文件</h4><pre><code>    不论进程犹豫什么原因停止，init进程都会收到这个进程停止运行的信号，并且在/etc/utmp中记录它结束运行的原因，同时还会在文件/var/adm/wtmp中保存进程启动的历史记录。
+    当用户编辑了/etc/inittab文件，增加了一条记录或者修改了其中的command字段，init进程不会马上重读该文件，所增加或者是修改的进程不会被立刻创建，除非以下3个条件之一发生，新进程才能被创建——</code></pre>
+<ol>
+<li>init进程的子孙进程中有一个进程结束了</li>
+<li>出现电源失败信号SIGPWR</li>
+<li>用户用init命令发出改变系统运行级别和重新检查/etc/inittab文件的信号<br>其中，以上三个条件最简单的方法就是用init命令发出重新检查/etc/inittab文件的信号<pre class="language-bash" data-language="bash"><code class="language-bash">#init Q
+#telinit -q</code></pre></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/AIX-5L%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E6%8A%80%E6%9C%AF/">AIX 5L系统管理技术</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/aix/">aix</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/25/%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%AE%89%E8%A3%85AIX%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="hidden-mobile">第二章 安装AIX操作系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+    
+      <script  src="https://cdn.staticfile.org/prism/1.22.0/components/prism-core.min.js" ></script>
+      <script  src="https://cdn.staticfile.org/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js" ></script>
+      
+    
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
