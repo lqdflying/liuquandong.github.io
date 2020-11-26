@@ -180,7 +180,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-11-26 12:21" pubdate>
+      <time datetime="2020-11-26 12:22" pubdate>
         2020年11月26日 中午
       </time>
     </span>
@@ -277,7 +277,7 @@
 <h5 id="2-基本设备配置阶段-rc-boot第1阶段"><a href="#2-基本设备配置阶段-rc-boot第1阶段" class="headerlink" title="2. 基本设备配置阶段(rc.boot第1阶段)"></a>2. 基本设备配置阶段(rc.boot第1阶段)</h5><p>现在的情况是，系统完成硬件检测，找到BLV，简历了RAM，启动了RAM中的init进程，但是rootvg还没有激活。rc.boot第一阶段主要是完成基本的设备配置</p>
 <ol>
 <li>RAMFS中的init进程执行引导脚本rc.boot带参数1，在这个过程中，rc.boot调用restbase命令，把引导逻辑卷（BLV）上的简化ODM数据库复制到RAMFS，如果这个操作时被，LED面板显示548.</li>
-<li>然后rc.boot执行cfgmgr -f命令（配置管理器），让cfgmgr从简化的ODM数据库中读取Config_Rules类，在Config_Rules类中，属性值为1的设备都被认为是基本设备，基本设备是为访问rootvg所需的全部设备。rc.boot这个阶段执行cfgmgr来配置基本设备，以便在下一个rc.boot阶段能够激活rootvg。<br>以下就是这个文件的位置<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/1.jpg" srcset="/img/loading.gif" alt="1"><br>顺便可以查出这个类下边phrase=1的对象：<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/9a63578241fc436dba893254ef705062.jpg" srcset="/img/loading.gif" alt="9a63578241fc436dba893254ef705062"><br>（后边还有，未截图列出）</li>
+<li>然后rc.boot执行cfgmgr -f命令（配置管理器），让cfgmgr从简化的ODM数据库中读取Config_Rules类，在Config_Rules类中，属性值为1的设备都被认为是基本设备，基本设备是为访问rootvg所需的全部设备。rc.boot这个阶段执行cfgmgr来配置基本设备，以便在下一个rc.boot阶段能够激活rootvg。<br>以下就是这个文件的位置<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/1.jpg" srcset="/img/loading.gif"><br>顺便可以查出这个类下边phrase=1的对象：<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/9a63578241fc436dba893254ef705062.jpg" srcset="/img/loading.gif"><br>（后边还有，未截图列出）</li>
 <li> 在rc.boot第一个引导阶段的最后，执行bootinfo -b命令来检测最后一次引导设备，这时LED显示511.</li>
 </ol>
 <h5 id="3-rc-boot第2引导阶段"><a href="#3-rc-boot第2引导阶段" class="headerlink" title="3. rc.boot第2引导阶段"></a>3. rc.boot第2引导阶段</h5><ol>
@@ -300,7 +300,7 @@
 <li>如果/etc/inittab不存在，init默认直接进入系统维护运行级别</li>
 <li>init进程每隔60秒重新读取一次/etc/inittab文件，如果init进程上次读过该文件之后，新增删了东西，这一次读取也会执行这些变化。</li>
 </ul>
-<h5 id="4-rc-boot第3引导阶段"><a href="#4-rc-boot第3引导阶段" class="headerlink" title="4. rc.boot第3引导阶段"></a>4. rc.boot第3引导阶段</h5><p>在/etc/inittab文件中第一条记录为initdefault，第二条记录的标识符为brc，这条记录就是指示init去执行rc.boot第3阶段。<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/4574c68d17e0425aa9757973a54a695e.jpg" srcset="/img/loading.gif" alt="4574c68d17e0425aa9757973a54a695e"><br>第3阶段工作为：</p>
+<h5 id="4-rc-boot第3引导阶段"><a href="#4-rc-boot第3引导阶段" class="headerlink" title="4. rc.boot第3引导阶段"></a>4. rc.boot第3引导阶段</h5><p>在/etc/inittab文件中第一条记录为initdefault，第二条记录的标识符为brc，这条记录就是指示init去执行rc.boot第3阶段。<br><img src="https://cdn.jsdelivr.net/gh/lqdflying/img@img/img/4574c68d17e0425aa9757973a54a695e.jpg" srcset="/img/loading.gif"><br>第3阶段工作为：</p>
 <ol>
 <li>安装/tmp文件系统</li>
 <li>同步rootvg（通过执行命令#syncvg -v rootvg &amp;），这可能会花一些时间，如果执行失败，则显示错误代码553</li>
@@ -310,15 +310,14 @@
 <li>退出执行rc.boot脚本，然后由init进程顺序启动/etc/inittab文件中的其他进程</li>
 </ol>
 <h4 id="五、操作系统运行级别"><a href="#五、操作系统运行级别" class="headerlink" title="五、操作系统运行级别"></a>五、操作系统运行级别</h4><p>操作系统真正的运行级别有11个，是0-9，再加一个S、s、M、m，其中级别2表示多用户模式，S、s、M、m这写个级别表示单用户模式（维护模式）</p>
-<h4 id="六、init进程重读-etc-inittab文件"><a href="#六、init进程重读-etc-inittab文件" class="headerlink" title="六、init进程重读/etc/inittab文件"></a>六、init进程重读/etc/inittab文件</h4><pre><code>    不论进程犹豫什么原因停止，init进程都会收到这个进程停止运行的信号，并且在/etc/utmp中记录它结束运行的原因，同时还会在文件/var/adm/wtmp中保存进程启动的历史记录。
-    当用户编辑了/etc/inittab文件，增加了一条记录或者修改了其中的command字段，init进程不会马上重读该文件，所增加或者是修改的进程不会被立刻创建，除非以下3个条件之一发生，新进程才能被创建——</code></pre>
+<h4 id="六、init进程重读-etc-inittab文件"><a href="#六、init进程重读-etc-inittab文件" class="headerlink" title="六、init进程重读/etc/inittab文件"></a>六、init进程重读/etc/inittab文件</h4><p>不论进程犹豫什么原因停止，init进程都会收到这个进程停止运行的信号，并且在/etc/utmp中记录它结束运行的原因，同时还会在文件/var/adm/wtmp中保存进程启动的历史记录。<br>当用户编辑了/etc/inittab文件，增加了一条记录或者修改了其中的command字段，init进程不会马上重读该文件，所增加或者是修改的进程不会被立刻创建，除非以下3个条件之一发生，新进程才能被创建——</p>
 <ol>
 <li>init进程的子孙进程中有一个进程结束了</li>
 <li>出现电源失败信号SIGPWR</li>
-<li>用户用init命令发出改变系统运行级别和重新检查/etc/inittab文件的信号<br>其中，以上三个条件最简单的方法就是用init命令发出重新检查/etc/inittab文件的信号<pre class="language-bash" data-language="bash"><code class="language-bash">#init Q
-#telinit -q</code></pre></li>
+<li>用户用init命令发出改变系统运行级别和重新检查/etc/inittab文件的信号<br>其中，以上三个条件最简单的方法就是用init命令发出重新检查/etc/inittab文件的信号</li>
 </ol>
-
+<pre class="language-bash" data-language="bash"><code class="language-bash">#init Q
+#telinit -q</code></pre>
             </div>
             <hr>
             <div>
@@ -347,6 +346,12 @@
                 <div class="post-prevnext row">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2020/11/26/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7SMIT/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第四章 系统管理工具SMIT</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
